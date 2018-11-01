@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*
 __author__ = 'double k'
-
 import re
 import datetime
 from selenium import webdriver
@@ -14,20 +13,7 @@ from urllib.request import urlretrieve
 import os
 from PIL import Image
 from bs4 import BeautifulSoup
-
-# 处理页面标签类
-class Tool:
-    # 删除超链接标签
-    removeAddr = re.compile('<a.*?>|</a>')
-    # 将换行符或双换行符替换为\n
-    replaceBR = re.compile('\n|\t|\xa0')
-
-    def replace(self, x):
-        x = re.sub(self.removeAddr, "", x)
-        x = re.sub(self.replaceBR, " ", x)
-        # strip()将前后多余内容删除
-        return x.strip()
-
+from ownModule import tool
 
 class DownLoadPicture:
     def __init__(self, url):
@@ -182,7 +168,6 @@ class GetTextDetail:
         self.browes.get(self.baseUrl)
         self.detailhtml = self.browes.page_source
         self.html = pq(self.detailhtml)
-        tool = Tool()
         title = tool.replace(self.html(".show-cont-title").text())
         dateOrigin = re.findall(
             re.compile("更新时间：(.*?)\Z"),
